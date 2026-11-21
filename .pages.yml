@@ -96,7 +96,7 @@ content:
               - { name: title, label: Card Title, type: string }
               - { name: statusIdle, label: Idle Prompt Text, type: string }
               - { name: statusPlaying, label: Playing Status Text, type: string }
-              - { name: audioFile, label: English App Audio File (MP3/WAV path in assets/), type: string }
+              - { name: audioFile, label: English App Audio File (WAV/MP3 path, e.g. public/audio-en.wav), type: string }
               - { name: script, label: Narration Script, type: text }
               - { name: signPill, label: Sign Language Pill, type: string }
               - { name: signText, label: Sign Translation Text, type: string }
@@ -108,7 +108,7 @@ content:
               - { name: title, label: Card Title, type: string }
               - { name: statusIdle, label: Idle Prompt Text, type: string }
               - { name: statusPlaying, label: Playing Status Text, type: string }
-              - { name: audioFile, label: Tagalog App Audio File (MP3/WAV path in assets/), type: string }
+              - { name: audioFile, label: Tagalog App Audio File (WAV/MP3 path, e.g. public/audio-tl.wav), type: string }
               - { name: script, label: Narration Script, type: text }
               - { name: signPill, label: Sign Language Pill, type: string }
               - { name: signText, label: Sign Translation Text, type: string }

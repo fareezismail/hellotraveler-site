@@ -1921,10 +1921,13 @@
                 </div>
 
                 <p class="audio-quote" id="audioScriptText">
-                  &ldquo;Hello Traveler! Look up at the sign reading MOTOGO Home and soak in
-                  this stunning example of traditional Hmong architecture. Nestled in the Ha
-                  Giang mountains, this dwelling features earthen walls and stone carvings built
-                  to brave the cool climate.&rdquo;
+                  &ldquo;Hello Traveler! Step through the timber archway of MOTOGO Home in Lo Lo
+                  Chai Village, high in northern Vietnam. Above you, layered clay roof tiles
+                  crown weathered wooden doors framed by geometric stone pillars. Beyond the
+                  gate, warm golden earthen walls and vibrant hanging crafts celebrate centuries
+                  of Lo Lo highland heritage. Take a moment to soak in the peaceful mountain
+                  atmosphere, and remember to ask kindly before photographing local residents in
+                  traditional attire.&rdquo;
                 </p>
               </div>
 
@@ -2327,38 +2330,35 @@
     });
 
     // 2. Bilingual Audio Tour & Sign Translation Demo (EN / TL)
-    // Uses real app audio clips (assets/audio-en.mp3, assets/audio-tl.mp3) when present,
-    // with a graceful natural-voice fallback only if the audio clip is not yet uploaded.
+    // Plays the authentic HelloTraveler studio WAV narration files (public/audio-en.wav & public/audio-tl.wav).
     let demoContent = {
       en: {
         sub: 'Viewing & listening in English',
         title: 'Audio Tour \u00B7 English',
         statusIdle: 'Tap to preview narration',
         statusPlaying: 'Playing English narration',
-        audioFile: 'assets/audio-en.mp3',
+        audioFile: 'public/audio-en.wav',
         script:
-          '\u201CHello Traveler! Look up at the sign reading MOTOGO Home and soak in this stunning example of traditional Hmong architecture. Nestled in the Ha Giang mountains, this dwelling features earthen walls and stone carvings built to brave the cool climate.\u201D',
+          '\u201CHello Traveler! Step through the timber archway of MOTOGO Home in Lo Lo Chai Village, high in northern Vietnam. Above you, layered clay roof tiles crown weathered wooden doors framed by geometric stone pillars. Beyond the gate, warm golden earthen walls and vibrant hanging crafts celebrate centuries of Lo Lo highland heritage. Take a moment to soak in the peaceful mountain atmosphere, and remember to ask kindly before photographing local residents in traditional attire.\u201D',
         signPill: 'English',
-        signText: 'MOTOGO Home, Traditional Hmong Highland Homestay, Ha Giang',
+        signText: 'MOTOGO Home, Traditional Lo Lo Highland Homestay, Lo Lo Chai Village',
       },
       tl: {
         sub: 'Tinitingnan at pinapakinggan sa Tagalog',
         title: 'Audio Tour \u00B7 Tagalog',
         statusIdle: 'I-tap upang pakinggan ang salaysay',
         statusPlaying: 'Pinapatugtog ang salaysay sa Tagalog',
-        audioFile: 'assets/audio-tl.mp3',
+        audioFile: 'public/audio-tl.wav',
         script:
-          '\u201CHello Traveler! Tingnan ang karatulang MOTOGO Home at pagmasdan ang magandang halimbawa ng tradisyonal na arkitekturang Hmong sa kabundukan ng Ha Giang, na gawa sa luwad at inukit na bato para sa malamig na klima.\u201D',
+          '\u201CHello Traveler! Pumasok ka sa kahoy na arko ng MOTOGO Home sa nayon ng Lo Lo Chai sa hilagang Vietnam. Sa itaas, ang mga tisa sa bubong ay nakapatong sa lumang pintuang kahoy at mga inukit na haliging bato. Sa loob, ipinapakita ng dilaw na pader na lupa at makukulay na palamuti ang maraming siglo ng kulturang Lo Lo. Damhin ang payapang simoy ng bundok, at magpaalam nang magalang bago kumuha ng larawan ng mga residente.\u201D',
         signPill: 'Tagalog',
-        signText: 'MOTOGO Home, Tradisyonal na Tahanang Hmong sa Kabundukan ng Ha Giang',
+        signText: 'MOTOGO Home, Tradisyonal na Tahanang Lo Lo sa Nayon ng Lo Lo Chai',
       },
     };
 
     let currentLang = 'en';
     let currentSpeed = 1;
     let isPlaying = false;
-    let progressValue = 0;
-    let progressTimer = null;
     const audioPlayer = new Audio();
     audioPlayer.preload = 'metadata';
 
@@ -2399,9 +2399,7 @@
         currentSpeed = parseFloat(btn.dataset.speed);
         document.querySelectorAll('.speed-pill[data-speed]').forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
-        if (!audioPlayer.paused) {
-          audioPlayer.playbackRate = currentSpeed;
-        }
+        audioPlayer.playbackRate = currentSpeed;
         if (isPlaying) {
           audioStatus.textContent = `${demoContent[currentLang].statusPlaying} (${currentSpeed}x)`;
         }
@@ -2419,47 +2417,11 @@
 
     function stopAudioDemo() {
       isPlaying = false;
-      clearInterval(progressTimer);
-      progressValue = 0;
       audioPlayer.pause();
       audioPlayer.currentTime = 0;
       audioProgressFill.style.width = '0%';
       audioStatus.textContent = demoContent[currentLang].statusIdle;
       playIcon.innerHTML = '<polygon points="7 4 20 12 7 20 7 4"></polygon>';
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
-    }
-
-    function pickBestNaturalVoice(langPrefix) {
-      if (!('speechSynthesis' in window)) return null;
-      const voices = window.speechSynthesis.getVoices();
-      const matching = voices.filter((v) => v.lang.toLowerCase().startsWith(langPrefix));
-      const preferred = matching.find((v) => /natural|neural|google|aria|jenny|samantha|ava/i.test(v.name));
-      return preferred || matching[0] || null;
-    }
-
-    function playFallbackSpeech() {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(demoContent[currentLang].script.replace(/[\u201C\u201D"]/g, ''));
-        const langPrefix = currentLang === 'tl' ? 'fil' : 'en';
-        utter.lang = currentLang === 'tl' ? 'fil-PH' : 'en-US';
-        const voice = pickBestNaturalVoice(langPrefix);
-        if (voice) utter.voice = voice;
-        utter.rate = currentSpeed;
-        utter.onend = () => stopAudioDemo();
-        window.speechSynthesis.speak(utter);
-      }
-
-      progressTimer = setInterval(() => {
-        progressValue += 2.2 * currentSpeed;
-        if (progressValue >= 100) {
-          stopAudioDemo();
-          return;
-        }
-        audioProgressFill.style.width = `${progressValue}%`;
-      }, 250);
     }
 
     demoPlayBtn.addEventListener('click', () => {
@@ -2467,21 +2429,19 @@
         stopAudioDemo();
         return;
       }
+      const audioSrc = demoContent[currentLang].audioFile;
+      if (!audioSrc) return;
+
       isPlaying = true;
       audioStatus.textContent = `${demoContent[currentLang].statusPlaying} (${currentSpeed}x)`;
       playIcon.innerHTML = '<rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect>';
 
-      const audioSrc = demoContent[currentLang].audioFile;
-      if (audioSrc) {
-        audioPlayer.src = audioSrc;
-        audioPlayer.playbackRate = currentSpeed;
-        audioPlayer.play().catch(() => {
-          // Real app audio clip not uploaded yet; fall back cleanly
-          if (isPlaying) playFallbackSpeech();
-        });
-      } else {
-        playFallbackSpeech();
-      }
+      audioPlayer.src = audioSrc;
+      audioPlayer.playbackRate = currentSpeed;
+      audioPlayer.play().catch(() => {
+        stopAudioDemo();
+        audioStatus.textContent = 'Audio preview unavailable';
+      });
     });
 
     // 3. Interactive Ask Tour Guide Replies
