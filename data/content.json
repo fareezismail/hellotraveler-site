@@ -69,20 +69,20 @@
       "title": "Audio Tour · English",
       "statusIdle": "Tap to preview narration",
       "statusPlaying": "Playing English narration",
-      "audioFile": "assets/audio-en.mp3",
-      "script": "\"Hello Traveler! Look up at the sign reading MOTOGO Home and soak in this stunning example of traditional Hmong architecture. Nestled in the Ha Giang mountains, this dwelling features earthen walls and stone carvings built to brave the cool climate.\"",
+      "audioFile": "public/audio-en.wav",
+      "script": "\"Hello Traveler! Step through the timber archway of MOTOGO Home in Lo Lo Chai Village, high in northern Vietnam. Above you, layered clay roof tiles crown weathered wooden doors framed by geometric stone pillars. Beyond the gate, warm golden earthen walls and vibrant hanging crafts celebrate centuries of Lo Lo highland heritage. Take a moment to soak in the peaceful mountain atmosphere, and remember to ask kindly before photographing local residents in traditional attire.\"",
       "signPill": "English",
-      "signText": "MOTOGO Home, Traditional Hmong Highland Homestay, Ha Giang"
+      "signText": "MOTOGO Home, Traditional Lo Lo Highland Homestay, Lo Lo Chai Village"
     },
     "tagalog": {
       "sub": "Tinitingnan at pinapakinggan sa Tagalog",
       "title": "Audio Tour · Tagalog",
       "statusIdle": "I-tap upang pakinggan ang salaysay",
       "statusPlaying": "Pinapatugtog ang salaysay sa Tagalog",
-      "audioFile": "assets/audio-tl.mp3",
-      "script": "\"Hello Traveler! Tingnan ang karatulang MOTOGO Home at pagmasdan ang magandang halimbawa ng tradisyonal na arkitekturang Hmong sa kabundukan ng Ha Giang, na gawa sa luwad at inukit na bato para sa malamig na klima.\"",
+      "audioFile": "public/audio-tl.wav",
+      "script": "\"Hello Traveler! Pumasok ka sa kahoy na arko ng MOTOGO Home sa nayon ng Lo Lo Chai sa hilagang Vietnam. Sa itaas, ang mga tisa sa bubong ay nakapatong sa lumang pintuang kahoy at mga inukit na haliging bato. Sa loob, ipinapakita ng dilaw na pader na lupa at makukulay na palamuti ang maraming siglo ng kulturang Lo Lo. Damhin ang payapang simoy ng bundok, at magpaalam nang magalang bago kumuha ng larawan ng mga residente.\"",
       "signPill": "Tagalog",
-      "signText": "MOTOGO Home, Tradisyonal na Tahanang Hmong sa Kabundukan ng Ha Giang"
+      "signText": "MOTOGO Home, Tradisyonal na Tahanang Lo Lo sa Nayon ng Lo Lo Chai"
     }
   },
   "journal": {
