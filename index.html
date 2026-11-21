@@ -1,0 +1,2658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelloTraveler: Every Place Has a Story Worth Hearing</title>
+  <meta
+    name="description"
+    content="HelloTraveler turns your camera into a personal cultural guide, identifying landmarks, translating signs, and narrating local history in English and Tagalog."
+  />
+
+  <!-- ISR Exact Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* =========================================================================
+       ISR DESIGN SYSTEM TOKENS (1:1 Codebase Tokens, Strictly Flat Elevation)
+       ========================================================================= */
+    :root {
+      /* Canvas & Surface Stepping */
+      --color-bg-canvas: #FFF6CC;
+      --color-surface-card: #FFFDF0;
+      --color-surface-warm: #FFF0B5;
+      --color-surface-rich: #FFE896;
+      --color-surface-soft-gold: #FFE99C;
+      --color-surface-soft-cream: #FFF8DB;
+
+      /* Text & Brand Ink */
+      --color-ink-black: #000000;
+      --color-ink-dark: #11110E;
+      --color-ink-muted: #4A4435;
+      --color-ink-muted-75: rgba(74, 68, 53, 0.75);
+      --color-ink-muted-65: rgba(74, 68, 53, 0.65);
+      --color-ink-tag-cream: #2B1E00;
+      --color-white: #FFFFFF;
+
+      /* Accents & Semantic */
+      --color-accent-gold: #FDC50E;
+      --color-accent-discover: #FFC700;
+      --color-accent-red: #D1130F;
+      --color-accent-amber: #8F6400;
+
+      --color-error: #B3261E;
+      --color-error-container: #FFDAD6;
+      --color-on-error-container: #410002;
+
+      /* Tinted Feature Cards & Overlays */
+      --color-card-audio-bg: rgba(253, 197, 14, 0.55);
+      --color-card-audio-border: rgba(0, 0, 0, 0.28);
+      --color-card-sign-bg: rgba(255, 233, 156, 0.45);
+      --color-card-sign-border: rgba(209, 19, 15, 0.25);
+      --color-card-etiquette-bg: rgba(255, 248, 219, 0.35);
+      --color-card-etiquette-border: rgba(143, 100, 0, 0.25);
+      --color-cta-outlined-bg: rgba(255, 233, 156, 0.65);
+      --color-cta-upload-bg: rgba(255, 233, 156, 0.55);
+      --color-inset-sign-bg: rgba(255, 246, 204, 0.78);
+      --color-speed-inactive-bg: rgba(255, 246, 204, 0.70);
+      --color-overlay-pill: rgba(0, 0, 0, 0.55);
+      --color-overlay-circle: rgba(0, 0, 0, 0.45);
+
+      /* Borders */
+      --color-border-subtle: #E8DAA0;
+      --color-border-outline: #D6C47E;
+      --color-border-ink: #11110E;
+
+      /* Typography */
+      --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+      /* Radii */
+      --radius-tag: 6px;
+      --radius-xs: 8px;
+      --radius-icon: 10px;
+      --radius-sm: 12px;
+      --radius-input: 14px;
+      --radius-cta-lg: 16px;
+      --radius-md: 18px;
+      --radius-card: 20px;
+      --radius-modal: 22px;
+      --radius-lg: 24px;
+      --radius-hero-card: 26px;
+      --radius-xl: 32px;
+      --radius-pill: 999px;
+
+      /* Strictly Flat */
+      --shadow-none: none;
+
+      /* Layout Containers */
+      --container-site: 1120px;
+      --container-detail: 820px;
+      --container-app: 760px;
+      --container-welcome: 560px;
+    }
+
+    /* =========================================================================
+       RESET & BASE
+       ========================================================================= */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      box-shadow: none;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.563;
+      letter-spacing: 0.15px;
+      font-weight: 400;
+      color: var(--color-ink-dark);
+      background-color: var(--color-bg-canvas);
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: var(--font-sans);
+      text-transform: none;
+      cursor: pointer;
+    }
+
+    /* =========================================================================
+       LAYOUT UTILITIES
+       ========================================================================= */
+    .container {
+      width: 100%;
+      max-width: var(--container-site);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .container-narrow {
+      width: 100%;
+      max-width: var(--container-detail);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* =========================================================================
+       TOP ANNOUNCEMENT BAR (Cocoon-inspired)
+       ========================================================================= */
+    .announcement {
+      background-color: var(--color-surface-warm);
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding: 10px 24px;
+      text-align: center;
+    }
+
+    .announcement-inner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.875rem;
+      line-height: 1.429;
+      letter-spacing: 0.15px;
+      color: var(--color-ink-dark);
+    }
+
+    .announcement-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      background-color: var(--color-accent-gold);
+      color: var(--color-ink-dark);
+      border-radius: var(--radius-pill);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      line-height: 1.273;
+    }
+
+    .announcement a {
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      color: var(--color-ink-dark);
+      transition: opacity 0.2s ease;
+    }
+
+    .announcement a:hover {
+      opacity: 0.7;
+    }
+
+    /* =========================================================================
+       STICKY NAVIGATION
+       ========================================================================= */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(255, 246, 204, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .brand-lockup {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .brand-wordmark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.55rem;
+      line-height: 1;
+      letter-spacing: -0.5px;
+      color: var(--color-ink-dark);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.429;
+      letter-spacing: 0.15px;
+      color: var(--color-ink-muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-ink-black);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 20px;
+      background-color: var(--color-ink-black);
+      color: var(--color-white);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.15px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--color-ink-black);
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      opacity: 0.86;
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 48px;
+      height: 48px;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid var(--color-border-outline);
+      border-radius: var(--radius-sm);
+      color: var(--color-ink-dark);
+    }
+
+    .mobile-drawer {
+      display: none;
+      background-color: var(--color-surface-card);
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding: 16px 24px 24px;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mobile-drawer.open {
+      display: flex;
+    }
+
+    .mobile-drawer a {
+      padding: 12px 4px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-ink-dark);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .mobile-drawer a:last-child {
+      border-bottom: none;
+      margin-top: 12px;
+      text-align: center;
+      background-color: var(--color-ink-black);
+      color: var(--color-white);
+      border-radius: var(--radius-input);
+      font-weight: 600;
+    }
+
+    /* =========================================================================
+       BUTTONS (Exact ISR 50px CTAs & Radii)
+       ========================================================================= */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 26px;
+      background-color: var(--color-ink-black);
+      color: var(--color-white);
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.429;
+      letter-spacing: 0.15px;
+      border: 1.75px solid var(--color-ink-black);
+      border-radius: var(--radius-cta-lg);
+      transition: opacity 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.86;
+    }
+
+    .btn-outlined {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 26px;
+      background-color: var(--color-cta-outlined-bg);
+      color: var(--color-ink-dark);
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.429;
+      letter-spacing: 0.15px;
+      border: 1.75px solid var(--color-border-ink);
+      border-radius: var(--radius-cta-lg);
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-outlined:hover {
+      background-color: var(--color-surface-rich);
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 26px;
+      background-color: var(--color-accent-discover);
+      color: var(--color-ink-dark);
+      font-size: 0.875rem;
+      font-weight: 700;
+      line-height: 1.429;
+      letter-spacing: 0.15px;
+      border: 1px solid var(--color-border-outline);
+      border-radius: var(--radius-input);
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-gold:hover {
+      background-color: var(--color-accent-gold);
+    }
+
+    /* =========================================================================
+       LANGUAGE SWITCH PILL (Exact ISR 200ms Pill)
+       ========================================================================= */
+    .lang-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px;
+      background-color: var(--color-surface-rich);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-pill);
+      gap: 2px;
+    }
+
+    .lang-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 36px;
+      padding: 0 14px;
+      border: none;
+      border-radius: var(--radius-pill);
+      background: transparent;
+      color: var(--color-ink-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      transition: background-color 200ms ease, color 200ms ease;
+    }
+
+    .lang-pill-btn.active {
+      background-color: var(--color-ink-black);
+      color: var(--color-white);
+      font-weight: 700;
+    }
+
+    /* =========================================================================
+       PHONE FRAME (Strictly Flat, Zero Drop Shadows)
+       ========================================================================= */
+    .phone-frame {
+      position: relative;
+      width: 272px;
+      border-radius: 34px;
+      border: 7px solid var(--color-ink-dark);
+      background-color: var(--color-ink-dark);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .phone-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 27px;
+    }
+
+    /* =========================================================================
+       HERO SECTION (Cocoon Editorial Lockup + Floating ISR UI Stage)
+       ========================================================================= */
+    .hero {
+      background: linear-gradient(180deg, #FFF6CC 0%, #FFFDF0 100%);
+      padding: 84px 0 96px;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background-color: var(--color-surface-soft-gold);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: var(--color-ink-tag-cream);
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.25rem, 5.2vw, 3.625rem);
+      line-height: 1.12;
+      letter-spacing: -0.03125rem;
+      color: var(--color-ink-dark);
+      margin-bottom: 22px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      line-height: 1.688;
+      letter-spacing: 0.15px;
+      color: var(--color-ink-muted);
+      max-width: 580px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Cocoon-style Hero Visual Canvas */
+    .hero-stage {
+      background-color: var(--color-surface-warm);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-hero-card);
+      padding: 40px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-rail {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Authentic ISR Floating Cards inside Hero Stage */
+    .isr-mini-card {
+      background-color: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 18px;
+      text-align: left;
+    }
+
+    .isr-mini-card.audio-tint {
+      background-color: var(--color-card-audio-bg);
+      border: 1px solid var(--color-card-audio-border);
+    }
+
+    .isr-mini-card.sign-tint {
+      background-color: var(--color-card-sign-bg);
+      border: 1px solid var(--color-card-sign-border);
+    }
+
+    .isr-mini-card.etiquette-tint {
+      background-color: var(--color-card-etiquette-bg);
+      border: 1px solid var(--color-card-etiquette-border);
+    }
+
+    .mini-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .mini-card-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.0625rem;
+      line-height: 1.3;
+      color: var(--color-ink-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mini-lang-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: var(--radius-tag);
+      background-color: var(--color-surface-soft-cream);
+      color: var(--color-ink-tag-cream);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .mini-red-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      background-color: var(--color-accent-red);
+      color: var(--color-white);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+    }
+
+    .audio-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .audio-play-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--color-ink-black);
+      color: var(--color-white);
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .speed-group {
+      display: inline-flex;
+      gap: 6px;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+    }
+
+    .speed-pill {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background-color: var(--color-speed-inactive-bg);
+      color: var(--color-ink-dark);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border: none;
+    }
+
+    .speed-pill.active {
+      background-color: var(--color-ink-black);
+      color: var(--color-white);
+    }
+
+    .audio-quote {
+      font-style: italic;
+      font-size: 0.75rem;
+      line-height: 1.45;
+      letter-spacing: 0.2px;
+      color: var(--color-ink-dark);
+    }
+
+    .sign-inset {
+      background-color: var(--color-inset-sign-bg);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-input);
+      padding: 12px 14px;
+    }
+
+    .sign-eyebrow {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--color-ink-muted-75);
+      margin-bottom: 4px;
+    }
+
+    .sign-text {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-ink-dark);
+    }
+
+    .etiquette-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .etiquette-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.8125rem;
+      line-height: 1.45;
+      color: var(--color-ink-dark);
+    }
+
+    .etiquette-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: var(--color-accent-amber);
+      color: var(--color-white);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* =========================================================================
+       CAPABILITY STRIP
+       ========================================================================= */
+    .capability-strip {
+      background-color: var(--color-surface-card);
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding: 36px 0;
+    }
+
+    .capability-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: var(--color-ink-muted-75);
+      margin-bottom: 20px;
+    }
+
+    .capability-grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .capability-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      background-color: var(--color-bg-canvas);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-pill);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-ink-dark);
+    }
+
+    .capability-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--color-accent-gold);
+      border: 1px solid var(--color-accent-amber);
+      flex-shrink: 0;
+    }
+
+    /* =========================================================================
+       COCOON-STYLE EDITORIAL FEATURE BLOCKS
+       ========================================================================= */
+    .story-section {
+      padding: 112px 0;
+    }
+
+    .story-section.surface-card {
+      background-color: var(--color-surface-card);
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .story-grid.reverse .story-media {
+      order: -1;
+    }
+
+    .story-copy {
+      max-width: 490px;
+    }
+
+    .story-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background-color: var(--color-surface-soft-gold);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: var(--color-ink-tag-cream);
+      margin-bottom: 20px;
+    }
+
+    .story-heading {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1.75rem, 3.2vw, 2.25rem);
+      line-height: 1.22;
+      letter-spacing: -0.025rem;
+      color: var(--color-ink-dark);
+      margin-bottom: 18px;
+    }
+
+    .story-lead {
+      font-size: 1rem;
+      line-height: 1.625;
+      letter-spacing: 0.15px;
+      color: var(--color-ink-muted);
+      margin-bottom: 16px;
+    }
+
+    .story-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0 28px;
+    }
+
+    .story-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      color: var(--color-ink-dark);
+    }
+
+    .check-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: var(--color-accent-gold);
+      color: var(--color-ink-black);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .story-media {
+      background-color: var(--color-surface-warm);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-hero-card);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .story-section.surface-card .story-media {
+      background-color: var(--color-bg-canvas);
+    }
+
+    /* Gold Category Chips inside Discover Feature */
+    .discover-chips {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .discover-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background-color: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-input);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-ink-dark);
+    }
+
+    .gold-icon-box {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-icon);
+      background-color: var(--color-accent-discover);
+      color: var(--color-ink-black);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* =========================================================================
+       INTERACTIVE LIVE DEMO: AUDIO TOUR & SIGN TRANSLATION
+       ========================================================================= */
+    .interactive-panel {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .lang-card {
+      background-color: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .lang-card-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-ink-dark);
+    }
+
+    .lang-card-sub {
+      font-size: 0.75rem;
+      color: var(--color-ink-muted);
+    }
+
+    .audio-progress {
+      width: 100%;
+      height: 5px;
+      background-color: rgba(0, 0, 0, 0.14);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      margin: 10px 0 12px;
+    }
+
+    .audio-progress-fill {
+      width: 0%;
+      height: 100%;
+      background-color: var(--color-ink-black);
+      border-radius: var(--radius-pill);
+      transition: width 0.25s linear;
+    }
+
+    /* =========================================================================
+       INTERACTIVE TOUR GUIDE & JOURNAL SECTION
+       ========================================================================= */
+    .journal-section {
+      padding: 112px 0;
+    }
+
+    .section-header-center {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 56px;
+    }
+
+    .section-header-center .story-heading {
+      margin-bottom: 16px;
+    }
+
+    .journal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .journal-panel {
+      background-color: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-hero-card);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .journal-panel-top {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .journal-panel h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.375rem;
+      line-height: 1.273;
+      color: var(--color-ink-dark);
+    }
+
+    .journal-panel p {
+      font-size: 0.9375rem;
+      line-height: 1.56;
+      color: var(--color-ink-muted);
+    }
+
+    .journal-phone-wrap {
+      background-color: var(--color-surface-warm);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .journal-phone-wrap .phone-frame {
+      width: 230px;
+    }
+
+    /* Interactive Ask Tour Guide Widget */
+    .guide-widget {
+      background-color: var(--color-bg-canvas);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 18px;
+    }
+
+    .guide-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 14px;
+    }
+
+    .guide-chip {
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: var(--radius-pill);
+      background-color: var(--color-ink-black);
+      color: var(--color-white);
+      border: 1px solid var(--color-ink-black);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .guide-chip.selected {
+      background-color: var(--color-accent-gold);
+      color: var(--color-ink-black);
+      border-color: var(--color-ink-black);
+    }
+
+    .guide-reply {
+      background-color: var(--color-surface-rich);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-input);
+      padding: 14px 16px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--color-ink-dark);
+    }
+
+    .guide-reply-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--color-accent-amber);
+      margin-bottom: 4px;
+    }
+
+    /* =========================================================================
+       COCOON-STYLE 3-COLUMN PERSONA / AUDIENCE CARDS
+       ========================================================================= */
+    .personas-section {
+      padding: 104px 0;
+      background-color: var(--color-surface-card);
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .personas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .persona-card {
+      background-color: var(--color-bg-canvas);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .persona-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-surface-warm);
+      border: 1px solid var(--color-border-outline);
+      color: var(--color-ink-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .persona-card h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.1875rem;
+      line-height: 1.368;
+      color: var(--color-ink-dark);
+    }
+
+    .persona-card p {
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--color-ink-muted);
+    }
+
+    /* =========================================================================
+       INTERACTIVE SCREENSHOTS GALLERY (All 5 Real Screens)
+       ========================================================================= */
+    .gallery-section {
+      padding: 112px 0;
+    }
+
+    .gallery-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .gallery-tab {
+      min-height: 40px;
+      padding: 0 18px;
+      border-radius: var(--radius-pill);
+      background-color: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      color: var(--color-ink-muted);
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .gallery-tab.active {
+      background-color: var(--color-accent-gold);
+      border-color: var(--color-ink-black);
+      color: var(--color-ink-black);
+      font-weight: 700;
+    }
+
+    .gallery-strip {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      padding: 8px 4px 20px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .gallery-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .gallery-item {
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+      background-color: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 18px;
+      text-align: center;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .gallery-item.highlighted {
+      border: 1.5px solid var(--color-ink-black);
+      background-color: rgba(253, 197, 14, 0.35);
+    }
+
+    .gallery-item .phone-frame {
+      width: 224px;
+      margin: 0 auto 14px;
+    }
+
+    .gallery-item-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--color-ink-dark);
+      margin-bottom: 4px;
+    }
+
+    .gallery-item-sub {
+      font-size: 0.75rem;
+      color: var(--color-ink-muted);
+    }
+
+    /* =========================================================================
+       REGIONAL PARTNER SPOTLIGHT (Independent Partner Framing)
+       ========================================================================= */
+    .partner-section {
+      padding: 88px 0;
+      background-color: var(--color-surface-card);
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .partner-card {
+      background-color: var(--color-surface-warm);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-hero-card);
+      padding: 44px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+
+    .partner-copy {
+      max-width: 600px;
+    }
+
+    .partner-copy h2 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      line-height: 1.24;
+      color: var(--color-ink-dark);
+      margin-bottom: 12px;
+    }
+
+    .partner-copy p {
+      font-size: 0.9375rem;
+      line-height: 1.62;
+      color: var(--color-ink-muted);
+    }
+
+    /* =========================================================================
+       FINAL EDITORIAL CTA (Cocoon Closing Card)
+       ========================================================================= */
+    .cta-section {
+      padding: 96px 0 112px;
+    }
+
+    .cta-card {
+      background-color: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-hero-card);
+      padding: 64px 40px;
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .cta-card h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.875rem, 3.8vw, 2.5rem);
+      line-height: 1.18;
+      letter-spacing: -0.025rem;
+      color: var(--color-ink-dark);
+      max-width: 600px;
+      margin: 0 auto 18px;
+    }
+
+    .cta-card p {
+      font-size: 1.0625rem;
+      line-height: 1.625;
+      color: var(--color-ink-muted);
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* =========================================================================
+       WARM EDITORIAL FOOTER
+       ========================================================================= */
+    .footer {
+      background-color: var(--color-surface-warm);
+      border-top: 1px solid var(--color-border-subtle);
+      padding: 64px 0 36px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      margin-top: 14px;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--color-ink-muted);
+      max-width: 320px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: var(--color-ink-muted-75);
+      margin-bottom: 16px;
+    }
+
+    .footer-col p {
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: var(--color-ink-muted);
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-ink-dark);
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      opacity: 0.65;
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--color-border-outline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.75rem;
+      color: var(--color-ink-muted-75);
+    }
+
+    .footer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background-color: var(--color-surface-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      color: var(--color-ink-dark);
+    }
+
+    /* =========================================================================
+       SUBTLE SCROLL REVEAL
+       ========================================================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    /* =========================================================================
+       RESPONSIVE BREAKPOINTS (ISR: < 600px, 600-839px, >= 840px)
+       ========================================================================= */
+    @media (max-width: 960px) {
+      .hero-stage {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 28px 20px;
+      }
+
+      .hero-rail {
+        width: 100%;
+        max-width: 440px;
+      }
+    }
+
+    @media (max-width: 839px) {
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .story-section,
+      .journal-section,
+      .personas-section,
+      .gallery-section,
+      .partner-section {
+        padding: 72px 0;
+      }
+
+      .story-grid,
+      .journal-grid,
+      .personas-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .story-grid.reverse .story-media {
+        order: 0;
+      }
+
+      .story-copy {
+        max-width: 100%;
+      }
+
+      .partner-card {
+        padding: 32px 24px;
+      }
+
+      .cta-card {
+        padding: 44px 24px;
+      }
+    }
+
+    @media (max-width: 599px) {
+      .hero {
+        padding: 52px 0 64px;
+      }
+
+      .hero-actions,
+      .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .phone-frame {
+        width: 236px;
+      }
+
+      .discover-chips {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== TOP ANNOUNCEMENT BAR ===== -->
+  <div class="announcement">
+    <div class="announcement-inner">
+      <span class="announcement-pill" data-cms="site.announcementBadge">New</span>
+      <span data-cms="site.announcementText">Explore landmarks worldwide with bilingual audio tours.</span>
+      <a href="#audio-demo" data-cms-link="site.announcementLinkHref" data-cms="site.announcementLinkLabel">Try the live audio tour &rarr;</a>
+    </div>
+  </div>
+
+  <!-- ===== STICKY NAVIGATION ===== -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="brand-lockup" aria-label="HelloTraveler home">
+        <span class="brand-wordmark" data-cms="site.brandName">HelloTraveler</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#identify">Identify</a></li>
+        <li><a href="#discover">Discover</a></li>
+        <li><a href="#audio-demo">Audio Tours</a></li>
+        <li><a href="#journal">Journal &amp; Guide</a></li>
+        <li><a href="#screenshots">Screens</a></li>
+        <li><a href="#partners">Partners</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#get-started" class="btn-nav" data-cms="site.navCtaLabel" data-cms-link="site.navCtaHref">Start Exploring</a>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="7" x2="21" y2="7"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="17" x2="21" y2="17"></line>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+      <a href="#identify">Identify Landmarks</a>
+      <a href="#discover">Discover Nearby</a>
+      <a href="#audio-demo">Audio Tours &amp; Translation</a>
+      <a href="#journal">Journal &amp; Tour Guide</a>
+      <a href="#screenshots">App Screens</a>
+      <a href="#partners">Regional Partners</a>
+      <a href="#get-started">Start Exploring</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-copy reveal">
+          <div class="eyebrow-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+            <span data-cms="hero.eyebrow">Personal Cultural Companion &middot; English &amp; Tagalog</span>
+          </div>
+
+          <h1 class="hero-title" data-cms="hero.title">Welcome to the modern era of meaningful travel</h1>
+          <p class="hero-subtitle" data-cms="hero.subtitle">
+            Point your camera at any landmark, heritage home, or weathered sign. HelloTraveler
+            instantly narrates its history, translates the plaque, and guides you with local
+            cultural respect.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#audio-demo" class="btn-primary" data-cms-link="hero.primaryCtaHref">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span data-cms="hero.primaryCtaLabel">Experience the Audio Tour</span>
+            </a>
+            <a href="#screenshots" class="btn-outlined" data-cms-link="hero.secondaryCtaHref">
+              <span data-cms="hero.secondaryCtaLabel">See Every Screen</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cocoon-style Visual Canvas with Real App + Authentic ISR Surface Cards -->
+        <div class="hero-stage reveal">
+          <!-- Left Rail: Audio Narration + Etiquette -->
+          <div class="hero-rail">
+            <div class="isr-mini-card audio-tint">
+              <div class="mini-card-head">
+                <span class="mini-card-title">Audio Tour &middot; English</span>
+                <span class="mini-lang-tag">EN / TL</span>
+              </div>
+              <div class="audio-row">
+                <div class="audio-play-btn" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="7 4 20 12 7 20 7 4"></polygon>
+                  </svg>
+                </div>
+                <div class="speed-group" aria-label="Playback speeds">
+                  <span class="speed-pill">0.85x</span>
+                  <span class="speed-pill active">1x</span>
+                  <span class="speed-pill">1.15x</span>
+                </div>
+              </div>
+              <p class="audio-quote" data-cms="hero.heroAudioQuote">
+                &ldquo;Hello Traveler! Look up at the sign reading MOTOGO Home and soak in this
+                stunning example of traditional Hmong architecture nestled in the Ha Giang
+                mountains...&rdquo;
+              </p>
+            </div>
+
+            <div class="isr-mini-card etiquette-tint">
+              <div class="mini-card-head">
+                <span class="mini-card-title">Visitor Tips &amp; Etiquette</span>
+              </div>
+              <ul class="etiquette-list">
+                <li>
+                  <span class="etiquette-num">1</span>
+                  <span>Ask permission before photographing local residents and children.</span>
+                </li>
+                <li>
+                  <span class="etiquette-num">2</span>
+                  <span>Remove your shoes before entering traditional indoor living spaces.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Center Phone Mockup -->
+          <div class="phone-frame">
+            <img
+              src="assets/journal-detail.jpg"
+              data-cms-src="hero.phoneImage"
+              alt="HelloTraveler app detail screen showing Motogo Home in Ha Giang with English and Tagalog audio tour and sign translation"
+            />
+          </div>
+
+          <!-- Right Rail: Sign Translation + Global Travelers Card -->
+          <div class="hero-rail">
+            <div class="isr-mini-card sign-tint">
+              <div class="mini-card-head">
+                <span class="mini-card-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D1130F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 8l6 6"></path>
+                    <path d="M4 14l6-6 2-3"></path>
+                    <path d="M2 5h12"></path>
+                    <path d="M7 2h1"></path>
+                    <path d="M22 22l-5-10-5 10"></path>
+                    <path d="M14 18h6"></path>
+                  </svg>
+                  <span>Sign &amp; Plaque</span>
+                </span>
+                <span class="mini-red-pill">English</span>
+              </div>
+              <div class="sign-inset">
+                <div class="sign-eyebrow">TEXT ON SIGN / PLAQUE</div>
+                <div class="sign-text" data-cms="hero.heroSignText">MOTOGO Home, Traditional Hmong Homestay</div>
+              </div>
+            </div>
+
+            <div class="isr-mini-card">
+              <div class="mini-card-head">
+                <span class="mini-card-title" data-cms="hero.heroCardTitle">Built for Curious Travelers</span>
+              </div>
+              <p style="font-size: 0.875rem; line-height: 1.5; color: var(--color-ink-muted);" data-cms="hero.heroCardBody">
+                From historic heritage streets to remote mountain roads around the world, every
+                stop saves automatically into your My Travel Notes journal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CAPABILITY STRIP ===== -->
+    <section class="capability-strip" aria-label="Core capabilities">
+      <div class="container">
+        <div class="capability-label" data-cms="capabilities.label">Everything you need to understand every place you visit</div>
+        <div class="capability-grid" id="capabilityGrid">
+          <div class="capability-pill">
+            <span class="capability-dot"></span>
+            <span>Instant Camera Landmark ID</span>
+          </div>
+          <div class="capability-pill">
+            <span class="capability-dot"></span>
+            <span>English &amp; Tagalog Audio Tours</span>
+          </div>
+          <div class="capability-pill">
+            <span class="capability-dot"></span>
+            <span>Sign &amp; Plaque Translation</span>
+          </div>
+          <div class="capability-pill">
+            <span class="capability-dot"></span>
+            <span>Nearby Dining, Nature &amp; Events</span>
+          </div>
+          <div class="capability-pill">
+            <span class="capability-dot"></span>
+            <span>Personal Tour Guide</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURE 1: IDENTIFY LANDMARKS ===== -->
+    <section id="identify" class="story-section">
+      <div class="container">
+        <div class="story-grid reveal">
+          <div class="story-copy">
+            <div class="story-kicker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+              <span data-cms="identify.kicker">Identify Landmarks</span>
+            </div>
+            <h2 class="story-heading" data-cms="identify.heading">Don&rsquo;t just take a photo. Unlock centuries of history.</h2>
+            <p class="story-lead" data-cms="identify.lead1">
+              Most travelers snap a picture of an old stone arch, ancestral house, or monument
+              and walk away never knowing who built it or why it matters. HelloTraveler changes
+              that in a single tap.
+            </p>
+            <p class="story-lead" data-cms="identify.lead2">
+              Open your camera, upload a shot from your gallery, or try a sample photo. Within
+              seconds, HelloTraveler recognizes the structure, classifies its architectural
+              heritage, and shares a deeply researched story tailored to where you&rsquo;re
+              standing.
+            </p>
+            <ul class="story-points" id="identifyBullets">
+              <li>
+                <span class="check-circle">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Live camera lens or gallery upload that works even after you leave the site</span>
+              </li>
+              <li>
+                <span class="check-circle">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Identifies architecture styles, historic eras, and exact regional context</span>
+              </li>
+              <li>
+                <span class="check-circle">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Includes a built-in sample photo so anyone can test it immediately</span>
+              </li>
+            </ul>
+            <a href="#audio-demo" class="btn-outlined" data-cms-link="identify.ctaHref">
+              <span data-cms="identify.ctaLabel">See what happens after you snap</span> &rarr;
+            </a>
+          </div>
+
+          <div class="story-media">
+            <div class="phone-frame">
+              <img
+                src="assets/identify.jpg"
+                data-cms-src="identify.image"
+                alt="HelloTraveler Identify Landmarks screen with Allow Camera Access and Upload Photo buttons"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURE 2: DISCOVER PLACES ===== -->
+    <section id="discover" class="story-section surface-card">
+      <div class="container">
+        <div class="story-grid reverse reveal">
+          <div class="story-copy">
+            <div class="story-kicker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+              </svg>
+              <span data-cms="discover.kicker">Discover Places</span>
+            </div>
+            <h2 class="story-heading" data-cms="discover.heading">Skip the tourist traps and discover what locals love near you</h2>
+            <p class="story-lead" data-cms="discover.lead1">
+              Whether you&rsquo;re exploring historic neighborhoods on foot or cruising coastal
+              roads anywhere in the world, the best meals, heritage bell towers, and quiet
+              viewpoints are rarely on generic top-ten lists.
+            </p>
+            <p class="story-lead" data-cms="discover.lead2">
+              One tap on Discover Nearby surfaces hand-picked dining, historical landmarks,
+              nature escapes, and local events right around your GPS location, and ready to open
+              directly in Google Maps.
+            </p>
+            <ul class="story-points" id="discoverBullets">
+              <li>
+                <span class="check-circle">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Curated across four clear pillars: Restaurants, Historical Sites, Nature, and Events</span>
+              </li>
+              <li>
+                <span class="check-circle">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                <span>Seamless switch between English and Tagalog descriptions on the spot</span>
+              </li>
+            </ul>
+            <div class="discover-chips" aria-label="Discover categories">
+              <div class="discover-chip">
+                <span class="gold-icon-box" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                    <path d="M7 2v20"></path>
+                    <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"></path>
+                  </svg>
+                </span>
+                <span>Restaurants</span>
+              </div>
+              <div class="discover-chip">
+                <span class="gold-icon-box" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="22" x2="21" y2="22"></line>
+                    <line x1="6" y1="18" x2="6" y2="11"></line>
+                    <line x1="10" y1="18" x2="10" y2="11"></line>
+                    <line x1="14" y1="18" x2="14" y2="11"></line>
+                    <line x1="18" y1="18" x2="18" y2="11"></line>
+                    <polygon points="12 2 20 7 4 7"></polygon>
+                  </svg>
+                </span>
+                <span>Historical Sites</span>
+              </div>
+              <div class="discover-chip">
+                <span class="gold-icon-box" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 5 12 9 12 4 20 20 20 15 12 19 12 12 2"></polygon>
+                  </svg>
+                </span>
+                <span>Nature</span>
+              </div>
+              <div class="discover-chip">
+                <span class="gold-icon-box" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                </span>
+                <span>Events</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="story-media">
+            <div class="phone-frame">
+              <img
+                src="assets/discover.jpg"
+                data-cms-src="discover.image"
+                alt="HelloTraveler Discover Places screen featuring local architecture, food illustration, and Discover Nearby CTA"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURE 3: INTERACTIVE AUDIO TOURS & SIGN TRANSLATION ===== -->
+    <section id="audio-demo" class="story-section">
+      <div class="container">
+        <div class="story-grid reveal">
+          <div class="story-copy">
+            <div class="story-kicker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+              </svg>
+              <span data-cms="audioDemo.kicker">Audio Tours &amp; Translation</span>
+            </div>
+            <h2 class="story-heading" data-cms="audioDemo.heading">Listen hands-free in English or Tagalog</h2>
+            <p class="story-lead" data-cms="audioDemo.lead1">
+              Keep your eyes on the stone carvings, mountain skyline, and street life around you
+              instead of staring at a wall of tiny text. Every landmark includes a warm, paced
+              audio tour with selectable playback speed (0.85x, 1x, 1.15x).
+            </p>
+            <p class="story-lead" data-cms="audioDemo.lead2">
+              Switch languages anytime using the interactive demo on the right to see how
+              HelloTraveler adapts both narration and sign translations seamlessly.
+            </p>
+          </div>
+
+          <!-- Interactive ISR Preview Card -->
+          <div class="story-media">
+            <div class="interactive-panel">
+              <!-- Language Switcher Card -->
+              <div class="lang-card">
+                <div>
+                  <div class="lang-card-label">Guide &amp; Audio Language</div>
+                  <div class="lang-card-sub" id="langSubText">Viewing &amp; listening in English</div>
+                </div>
+                <div class="lang-pill" role="tablist" aria-label="Choose guide language">
+                  <button
+                    type="button"
+                    class="lang-pill-btn active"
+                    id="btnLangEn"
+                    role="tab"
+                    aria-selected="true"
+                  >
+                    English
+                  </button>
+                  <button
+                    type="button"
+                    class="lang-pill-btn"
+                    id="btnLangTl"
+                    role="tab"
+                    aria-selected="false"
+                  >
+                    Tagalog
+                  </button>
+                </div>
+              </div>
+
+              <!-- Audio Narration Card -->
+              <div class="isr-mini-card audio-tint">
+                <div class="mini-card-head">
+                  <span class="mini-card-title" id="audioCardTitle">Audio Tour &middot; English</span>
+                  <div class="speed-group" role="group" aria-label="Audio playback speed">
+                    <button type="button" class="speed-pill" data-speed="0.85">0.85x</button>
+                    <button type="button" class="speed-pill active" data-speed="1">1x</button>
+                    <button type="button" class="speed-pill" data-speed="1.15">1.15x</button>
+                  </div>
+                </div>
+
+                <div class="audio-row">
+                  <button
+                    type="button"
+                    class="audio-play-btn"
+                    id="demoPlayBtn"
+                    aria-label="Play sample audio tour"
+                  >
+                    <svg id="playIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="7 4 20 12 7 20 7 4"></polygon>
+                    </svg>
+                  </button>
+                  <div style="flex: 1;">
+                    <div style="font-size: 0.8125rem; font-weight: 600; color: var(--color-ink-dark);" id="audioStatus">
+                      Tap to preview narration
+                    </div>
+                    <div class="audio-progress">
+                      <div class="audio-progress-fill" id="audioProgressFill"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="audio-quote" id="audioScriptText">
+                  &ldquo;Hello Traveler! Look up at the sign reading MOTOGO Home and soak in
+                  this stunning example of traditional Hmong architecture. Nestled in the Ha
+                  Giang mountains, this dwelling features earthen walls and stone carvings built
+                  to brave the cool climate.&rdquo;
+                </p>
+              </div>
+
+              <!-- Sign & Plaque Translation Card -->
+              <div class="isr-mini-card sign-tint">
+                <div class="mini-card-head">
+                  <span class="mini-card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D1130F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 8l6 6"></path>
+                      <path d="M4 14l6-6 2-3"></path>
+                      <path d="M2 5h12"></path>
+                      <path d="M7 2h1"></path>
+                      <path d="M22 22l-5-10-5 10"></path>
+                      <path d="M14 18h6"></path>
+                    </svg>
+                    <span>Sign &amp; Plaque Translation</span>
+                  </span>
+                  <span class="mini-red-pill" id="signLangPill">English</span>
+                </div>
+                <div class="sign-inset">
+                  <div class="sign-eyebrow">TEXT ON SIGN / PLAQUE</div>
+                  <div class="sign-text" id="signTranslationText">
+                    MOTOGO Home, Traditional Hmong Highland Homestay, Ha Giang
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURE 4: TRAVEL JOURNAL, ETIQUETTE & INTERACTIVE TOUR GUIDE ===== -->
+    <section id="journal" class="journal-section">
+      <div class="container">
+        <div class="section-header-center reveal">
+          <div class="story-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <span data-cms="journal.kicker">Journal &amp; Tour Guide</span>
+          </div>
+          <h2 class="story-heading" data-cms="journal.heading">Go deeper, travel with respect, and remember every stop</h2>
+          <p class="story-lead" data-cms="journal.lead">
+            Every place you identify becomes an editorial journal entry, pairing historical
+            background and cultural etiquette with My Travel Notes and an always-ready personal
+            tour guide.
+          </p>
+        </div>
+
+        <div class="journal-grid">
+          <!-- Card 1: Editorial History & Cultural Significance -->
+          <div class="journal-panel reveal">
+            <div class="journal-panel-top">
+              <h3 data-cms="journal.leftTitle">Editorial history &amp; cultural significance</h3>
+              <p data-cms="journal.leftBody">
+                Read clear, respectful context written like a thoughtful travel magazine,
+                covering architectural heritage, symbolic motifs, and how local communities keep
+                centuries-old traditions alive.
+              </p>
+
+              <!-- Complementary ISR Editorial & Etiquette Preview -->
+              <div class="isr-mini-card etiquette-tint">
+                <div class="mini-card-head">
+                  <span class="mini-card-title" style="font-size: 1rem;">Visitor Tips &amp; What to Notice</span>
+                </div>
+                <ul class="etiquette-list" id="etiquetteTipsList">
+                  <li>
+                    <span class="etiquette-num">1</span>
+                    <span>Always ask for permission before photographing local residents and children.</span>
+                  </li>
+                  <li>
+                    <span class="etiquette-num">2</span>
+                    <span>Remove your shoes before entering traditional indoor living spaces.</span>
+                  </li>
+                  <li>
+                    <span class="etiquette-num">3</span>
+                    <span>Support the local community by purchasing handmade crafts directly from artisans.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="journal-phone-wrap">
+              <div class="phone-frame">
+                <img
+                  src="assets/history.jpg"
+                  data-cms-src="journal.leftImage"
+                  alt="HelloTraveler Historical Background and Cultural Significance cards for Motogo Home"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Interactive Ask Tour Guide + My Travel Notes -->
+          <div class="journal-panel reveal">
+            <div class="journal-panel-top">
+              <h3 data-cms="journal.rightTitle">Ask Tour Guide &amp; My Travel Notes</h3>
+              <p data-cms="journal.rightBody">
+                Curious who built it, what hidden details to look for, or when to visit? Tap a
+                suggested question below, or type your own inside the app, and save personal
+                memories in My Travel Notes alongside every stop.
+              </p>
+
+              <!-- Interactive Ask Tour Guide Widget -->
+              <div class="guide-widget">
+                <div class="mini-card-title" style="font-size: 1rem;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3z"></path>
+                  </svg>
+                  <span>Try Ask Tour Guide</span>
+                </div>
+                <div class="guide-chips" role="group" aria-label="Sample tour guide questions">
+                  <button type="button" class="guide-chip selected" data-q="built">Who built this?</button>
+                  <button type="button" class="guide-chip" data-q="details">What details should I notice?</button>
+                  <button type="button" class="guide-chip" data-q="time">Best time to visit?</button>
+                </div>
+                <div class="guide-reply">
+                  <div class="guide-reply-label">Tour Guide Reply</div>
+                  <div id="guideReplyText">
+                    Traditional Ha Giang homesteads like Motogo Home are crafted by local Hmong
+                    families using centuries-old rammed-earth wall techniques and hand-carved
+                    limestone pillars passed down across generations.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="journal-phone-wrap">
+              <div class="phone-frame">
+                <img
+                  src="assets/tips-guide.jpg"
+                  data-cms-src="journal.rightImage"
+                  alt="HelloTraveler Visitor Tips, My Travel Notes, and Ask Tour Guide interface"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COCOON-STYLE 3-COLUMN AUDIENCE / USE-CASE GRID ===== -->
+    <section class="personas-section">
+      <div class="container">
+        <div class="section-header-center reveal">
+          <div class="story-kicker">
+            <span data-cms="personas.kicker">Designed Around Real Journeys</span>
+          </div>
+          <h2 class="story-heading" data-cms="personas.heading">See what HelloTraveler can do for every kind of explorer</h2>
+          <p class="story-lead" data-cms="personas.lead">
+            Whether you&rsquo;re exploring historic capitals on foot, riding coastal highways,
+            or discovering hidden mountain villages, HelloTraveler meets you right where
+            curiosity strikes.
+          </p>
+        </div>
+
+        <div class="personas-grid" id="personasGrid">
+          <article class="persona-card reveal">
+            <div class="persona-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="5.5" cy="17.5" r="3.5"></circle>
+                <circle cx="18.5" cy="17.5" r="3.5"></circle>
+                <path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-3-3 4-3 2 3h2"></path>
+              </svg>
+            </div>
+            <h3>For scooter riders &amp; road-trippers</h3>
+            <p>
+              Pull over at an unexpected roadside temple, viewpoint, or heritage mansion. Snap a
+              photo, pop in an earbud, and hear its story before getting back on the road.
+            </p>
+          </article>
+
+          <article class="persona-card reveal">
+            <div class="persona-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <h3>For culture-first travelers</h3>
+            <p>
+              Go beyond surface-level checklists. Get respectful local etiquette tips, real-time
+              plaque translations, and architectural history that honors indigenous heritage.
+            </p>
+          </article>
+
+          <article class="persona-card reveal">
+            <div class="persona-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <h3>For storytellers &amp; journal keepers</h3>
+            <p>
+              Every landmark automatically builds your personal Travel Journal, complete with
+              photos, audio scripts, and My Travel Notes to revisit long after the trip ends.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ALL 5 SCREENSHOTS INTERACTIVE WALKTHROUGH ===== -->
+    <section id="screenshots" class="gallery-section">
+      <div class="container">
+        <div class="section-header-center reveal">
+          <div class="story-kicker">
+            <span data-cms="screenshots.kicker">Inside the App</span>
+          </div>
+          <h2 class="story-heading" data-cms="screenshots.heading">Warm, calm, and crafted for explorers everywhere</h2>
+          <p class="story-lead" data-cms="screenshots.lead">
+            Built with a flat pastel editorial interface that stays effortless to read in bright
+            sunlight, with zero clutter and zero distractions.
+          </p>
+        </div>
+
+        <div class="gallery-tabs" id="galleryTabs" role="tablist" aria-label="Highlight app screen">
+          <button type="button" class="gallery-tab active" data-index="0">1. Identify</button>
+          <button type="button" class="gallery-tab" data-index="1">2. Discover</button>
+          <button type="button" class="gallery-tab" data-index="2">3. Audio &amp; Translation</button>
+          <button type="button" class="gallery-tab" data-index="3">4. Cultural History</button>
+          <button type="button" class="gallery-tab" data-index="4">5. Tips &amp; Tour Guide</button>
+        </div>
+
+        <div class="gallery-strip" id="galleryStrip">
+          <div class="gallery-item highlighted" data-index="0">
+            <div class="phone-frame">
+              <img src="assets/identify.jpg" alt="HelloTraveler Identify Landmarks screen" />
+            </div>
+            <div class="gallery-item-title">Identify Landmarks</div>
+            <div class="gallery-item-sub">Camera snap, upload, or sample photo</div>
+          </div>
+
+          <div class="gallery-item" data-index="1">
+            <div class="phone-frame">
+              <img src="assets/discover.jpg" alt="HelloTraveler Discover Places screen" />
+            </div>
+            <div class="gallery-item-title">Discover Places</div>
+            <div class="gallery-item-sub">Dining, history, nature &amp; local events</div>
+          </div>
+
+          <div class="gallery-item" data-index="2">
+            <div class="phone-frame">
+              <img src="assets/journal-detail.jpg" alt="HelloTraveler Audio Tour and Sign Translation screen" />
+            </div>
+            <div class="gallery-item-title">Audio &amp; Translation</div>
+            <div class="gallery-item-sub">English &amp; Tagalog narration + plaques</div>
+          </div>
+
+          <div class="gallery-item" data-index="3">
+            <div class="phone-frame">
+              <img src="assets/history.jpg" alt="HelloTraveler Historical Background and Cultural Significance screen" />
+            </div>
+            <div class="gallery-item-title">Cultural Context</div>
+            <div class="gallery-item-sub">Editorial background &amp; heritage notes</div>
+          </div>
+
+          <div class="gallery-item" data-index="4">
+            <div class="phone-frame">
+              <img src="assets/tips-guide.jpg" alt="HelloTraveler Visitor Tips, My Travel Notes, and Ask Tour Guide screen" />
+            </div>
+            <div class="gallery-item-title">Tips &amp; Tour Guide</div>
+            <div class="gallery-item-sub">Etiquette, notes &amp; instant Q&amp;A</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== REGIONAL PARTNER SPOTLIGHT (PHILIPPINES) ===== -->
+    <section id="partners" class="partner-section">
+      <div class="container">
+        <div class="partner-card reveal">
+          <div class="partner-copy">
+            <div class="story-kicker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span data-cms="partner.kicker">Regional Partner Spotlight &middot; Philippines</span>
+            </div>
+            <h2 data-cms="partner.heading">Exploring Iloilo and Panay on two wheels?</h2>
+            <p data-cms="partner.body">
+              HelloTraveler is an independent, global travel guide built for explorers everywhere.
+              When your travels bring you to the Philippines, Ilonggo Scooter Rental is our
+              motorcycle rental partner in the Philippines, offering reliable scooters and
+              self-guided routes that pair naturally with HelloTraveler.
+            </p>
+          </div>
+          <div>
+            <a href="https://www.ilonggo.fun" target="_blank" rel="noopener" class="btn-primary" data-cms-link="partner.ctaHref">
+              <span data-cms="partner.ctaLabel">Visit Ilonggo Scooter Rental</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CLOSING CTA SECTION (GLOBAL HELLOTRAVELER) ===== -->
+    <section id="get-started" class="cta-section">
+      <div class="container">
+        <div class="cta-card reveal">
+          <div class="eyebrow-pill">
+            <span data-cms="cta.eyebrow">Ready for Your Next Adventure?</span>
+          </div>
+          <h2 data-cms="cta.heading">It&rsquo;s time to experience the next generation of cultural travel</h2>
+          <p data-cms="cta.body">
+            HelloTraveler brings the freedom of independent exploration together with the depth
+            of a personal tour guide in your pocket, wherever in the world your journey takes you.
+          </p>
+          <div class="cta-buttons">
+            <a href="#identify" class="btn-primary" data-cms-link="cta.primaryHref">
+              <span data-cms="cta.primaryLabel">Explore Features</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="#audio-demo" class="btn-gold" data-cms-link="cta.secondaryHref">
+              <span data-cms="cta.secondaryLabel">Replay Live Audio Demo</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== WARM EDITORIAL FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-lockup">
+            <span class="brand-wordmark" data-cms="site.brandName">HelloTraveler</span>
+          </div>
+          <p data-cms="footer.description">
+            An independent global cultural companion app designed to help travelers explore
+            landmarks, local history, and traditions worldwide with curiosity and respect.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#identify">Identify Landmarks</a></li>
+            <li><a href="#discover">Discover Places</a></li>
+            <li><a href="#audio-demo">Audio Tours &amp; Translation</a></li>
+            <li><a href="#journal">Travel Journal &amp; Tour Guide</a></li>
+            <li><a href="#screenshots">App Walkthrough</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Regional Partner</h4>
+          <p data-cms="footer.partnerNote">Ilonggo Scooter Rental is our motorcycle rental partner in the Philippines.</p>
+          <ul>
+            <li><a href="https://www.ilonggo.fun" target="_blank" rel="noopener">Visit Ilonggo Scooter Rental</a></li>
+            <li><a href="https://www.ilonggo.fun/reservations" target="_blank" rel="noopener">Reserve a Scooter</a></li>
+            <li><a href="https://www.ilonggo.fun/iloilo-guides" target="_blank" rel="noopener">Iloilo Self-Guided Tours</a></li>
+            <li><a href="https://www.ilonggo.fun/faq" target="_blank" rel="noopener">Rider FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span data-cms="footer.copyright">&copy; 2026 HelloTraveler. All rights reserved.</span>
+        <span class="footer-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8F6400" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span data-cms="footer.domainLabel">hellotraveler.app</span>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== INTERACTIVE & PAGES CMS HYDRATION SCRIPTS ===== -->
+  <script>
+    // 1. Mobile Navigation Drawer
+    const navToggle = document.getElementById('navToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = mobileDrawer.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    mobileDrawer.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileDrawer.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // 2. Bilingual Audio Tour & Sign Translation Demo (EN / TL)
+    // Uses real app audio clips (assets/audio-en.mp3, assets/audio-tl.mp3) when present,
+    // with a graceful natural-voice fallback only if the audio clip is not yet uploaded.
+    let demoContent = {
+      en: {
+        sub: 'Viewing & listening in English',
+        title: 'Audio Tour \u00B7 English',
+        statusIdle: 'Tap to preview narration',
+        statusPlaying: 'Playing English narration',
+        audioFile: 'assets/audio-en.mp3',
+        script:
+          '\u201CHello Traveler! Look up at the sign reading MOTOGO Home and soak in this stunning example of traditional Hmong architecture. Nestled in the Ha Giang mountains, this dwelling features earthen walls and stone carvings built to brave the cool climate.\u201D',
+        signPill: 'English',
+        signText: 'MOTOGO Home, Traditional Hmong Highland Homestay, Ha Giang',
+      },
+      tl: {
+        sub: 'Tinitingnan at pinapakinggan sa Tagalog',
+        title: 'Audio Tour \u00B7 Tagalog',
+        statusIdle: 'I-tap upang pakinggan ang salaysay',
+        statusPlaying: 'Pinapatugtog ang salaysay sa Tagalog',
+        audioFile: 'assets/audio-tl.mp3',
+        script:
+          '\u201CHello Traveler! Tingnan ang karatulang MOTOGO Home at pagmasdan ang magandang halimbawa ng tradisyonal na arkitekturang Hmong sa kabundukan ng Ha Giang, na gawa sa luwad at inukit na bato para sa malamig na klima.\u201D',
+        signPill: 'Tagalog',
+        signText: 'MOTOGO Home, Tradisyonal na Tahanang Hmong sa Kabundukan ng Ha Giang',
+      },
+    };
+
+    let currentLang = 'en';
+    let currentSpeed = 1;
+    let isPlaying = false;
+    let progressValue = 0;
+    let progressTimer = null;
+    const audioPlayer = new Audio();
+    audioPlayer.preload = 'metadata';
+
+    const btnLangEn = document.getElementById('btnLangEn');
+    const btnLangTl = document.getElementById('btnLangTl');
+    const langSubText = document.getElementById('langSubText');
+    const audioCardTitle = document.getElementById('audioCardTitle');
+    const audioStatus = document.getElementById('audioStatus');
+    const audioScriptText = document.getElementById('audioScriptText');
+    const signLangPill = document.getElementById('signLangPill');
+    const signTranslationText = document.getElementById('signTranslationText');
+    const demoPlayBtn = document.getElementById('demoPlayBtn');
+    const playIcon = document.getElementById('playIcon');
+    const audioProgressFill = document.getElementById('audioProgressFill');
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      stopAudioDemo();
+      const c = demoContent[lang];
+      langSubText.textContent = c.sub;
+      audioCardTitle.textContent = c.title;
+      audioStatus.textContent = c.statusIdle;
+      audioScriptText.textContent = c.script;
+      signLangPill.textContent = c.signPill;
+      signTranslationText.textContent = c.signText;
+
+      btnLangEn.classList.toggle('active', lang === 'en');
+      btnLangEn.setAttribute('aria-selected', String(lang === 'en'));
+      btnLangTl.classList.toggle('active', lang === 'tl');
+      btnLangTl.setAttribute('aria-selected', String(lang === 'tl'));
+    }
+
+    btnLangEn.addEventListener('click', () => setLanguage('en'));
+    btnLangTl.addEventListener('click', () => setLanguage('tl'));
+
+    document.querySelectorAll('.speed-pill[data-speed]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentSpeed = parseFloat(btn.dataset.speed);
+        document.querySelectorAll('.speed-pill[data-speed]').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (!audioPlayer.paused) {
+          audioPlayer.playbackRate = currentSpeed;
+        }
+        if (isPlaying) {
+          audioStatus.textContent = `${demoContent[currentLang].statusPlaying} (${currentSpeed}x)`;
+        }
+      });
+    });
+
+    audioPlayer.addEventListener('timeupdate', () => {
+      if (audioPlayer.duration && Number.isFinite(audioPlayer.duration)) {
+        const pct = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        audioProgressFill.style.width = `${Math.min(100, pct)}%`;
+      }
+    });
+
+    audioPlayer.addEventListener('ended', () => stopAudioDemo());
+
+    function stopAudioDemo() {
+      isPlaying = false;
+      clearInterval(progressTimer);
+      progressValue = 0;
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
+      audioProgressFill.style.width = '0%';
+      audioStatus.textContent = demoContent[currentLang].statusIdle;
+      playIcon.innerHTML = '<polygon points="7 4 20 12 7 20 7 4"></polygon>';
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    function pickBestNaturalVoice(langPrefix) {
+      if (!('speechSynthesis' in window)) return null;
+      const voices = window.speechSynthesis.getVoices();
+      const matching = voices.filter((v) => v.lang.toLowerCase().startsWith(langPrefix));
+      const preferred = matching.find((v) => /natural|neural|google|aria|jenny|samantha|ava/i.test(v.name));
+      return preferred || matching[0] || null;
+    }
+
+    function playFallbackSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(demoContent[currentLang].script.replace(/[\u201C\u201D"]/g, ''));
+        const langPrefix = currentLang === 'tl' ? 'fil' : 'en';
+        utter.lang = currentLang === 'tl' ? 'fil-PH' : 'en-US';
+        const voice = pickBestNaturalVoice(langPrefix);
+        if (voice) utter.voice = voice;
+        utter.rate = currentSpeed;
+        utter.onend = () => stopAudioDemo();
+        window.speechSynthesis.speak(utter);
+      }
+
+      progressTimer = setInterval(() => {
+        progressValue += 2.2 * currentSpeed;
+        if (progressValue >= 100) {
+          stopAudioDemo();
+          return;
+        }
+        audioProgressFill.style.width = `${progressValue}%`;
+      }, 250);
+    }
+
+    demoPlayBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        stopAudioDemo();
+        return;
+      }
+      isPlaying = true;
+      audioStatus.textContent = `${demoContent[currentLang].statusPlaying} (${currentSpeed}x)`;
+      playIcon.innerHTML = '<rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect>';
+
+      const audioSrc = demoContent[currentLang].audioFile;
+      if (audioSrc) {
+        audioPlayer.src = audioSrc;
+        audioPlayer.playbackRate = currentSpeed;
+        audioPlayer.play().catch(() => {
+          // Real app audio clip not uploaded yet; fall back cleanly
+          if (isPlaying) playFallbackSpeech();
+        });
+      } else {
+        playFallbackSpeech();
+      }
+    });
+
+    // 3. Interactive Ask Tour Guide Replies
+    let guideAnswers = {
+      built:
+        'Traditional Ha Giang homesteads like Motogo Home are crafted by local Hmong families using centuries-old rammed-earth wall techniques and hand-carved limestone pillars passed down across generations.',
+      details:
+        'Look closely at the yin-yang clay roof tiles designed to shed heavy mountain mist, the geometric stone carvings flanking the timber gate, and the ochre earthen plaster that keeps rooms warm on chilly highland nights.',
+      time:
+        'Early morning (7:00 to 9:30 AM) or late afternoon brings soft golden light across the courtyard and quieter village lanes, ideal for respectful photography and chatting with local artisans.',
+    };
+
+    const guideReplyText = document.getElementById('guideReplyText');
+    let currentGuideKey = 'built';
+
+    document.querySelectorAll('.guide-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        currentGuideKey = chip.dataset.q;
+        document.querySelectorAll('.guide-chip').forEach((c) => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        guideReplyText.textContent = guideAnswers[currentGuideKey];
+      });
+    });
+
+    // 4. Interactive Screenshots Gallery Tabs
+    function bindGalleryHandlers() {
+      const galleryTabs = document.querySelectorAll('.gallery-tab');
+      const galleryItems = document.querySelectorAll('.gallery-item');
+
+      function highlightScreen(idx) {
+        galleryTabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+        galleryItems.forEach((item, i) => {
+          item.classList.toggle('highlighted', i === idx);
+          if (i === idx) {
+            item.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
+        });
+      }
+
+      galleryTabs.forEach((tab) => {
+        tab.onclick = () => highlightScreen(Number(tab.dataset.index));
+      });
+      galleryItems.forEach((item) => {
+        item.onclick = () => highlightScreen(Number(item.dataset.index));
+      });
+    }
+    bindGalleryHandlers();
+
+    // 5. Cocoon-style Scroll Reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+      );
+      revealEls.forEach((el) => io.observe(el));
+    } else {
+      revealEls.forEach((el) => el.classList.add('visible'));
+    }
+
+    // 6. Pages CMS Live Content Hydration (data/content.json)
+    function getByPath(obj, path) {
+      return path.split('.').reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), obj);
+    }
+
+    fetch('data/content.json')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!data) return;
+
+        if (data.site && data.site.title) document.title = data.site.title;
+        if (data.site && data.site.metaDescription) {
+          const metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc) metaDesc.setAttribute('content', data.site.metaDescription);
+        }
+
+        document.querySelectorAll('[data-cms]').forEach((el) => {
+          const val = getByPath(data, el.dataset.cms);
+          if (typeof val === 'string') el.textContent = val;
+        });
+
+        document.querySelectorAll('[data-cms-link]').forEach((el) => {
+          const val = getByPath(data, el.dataset.cmsLink);
+          if (typeof val === 'string') el.setAttribute('href', val);
+        });
+
+        document.querySelectorAll('[data-cms-src]').forEach((el) => {
+          const val = getByPath(data, el.dataset.cmsSrc);
+          if (typeof val === 'string') el.setAttribute('src', val);
+        });
+
+        if (data.capabilities && Array.isArray(data.capabilities.items)) {
+          const grid = document.getElementById('capabilityGrid');
+          if (grid) {
+            grid.innerHTML = data.capabilities.items
+              .map((item) => `<div class="capability-pill"><span class="capability-dot"></span><span>${item}</span></div>`)
+              .join('');
+          }
+        }
+
+        const checkSvg =
+          '<span class="check-circle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>';
+
+        if (data.identify && Array.isArray(data.identify.bullets)) {
+          const ul = document.getElementById('identifyBullets');
+          if (ul) ul.innerHTML = data.identify.bullets.map((b) => `<li>${checkSvg}<span>${b}</span></li>`).join('');
+        }
+
+        if (data.discover && Array.isArray(data.discover.bullets)) {
+          const ul = document.getElementById('discoverBullets');
+          if (ul) ul.innerHTML = data.discover.bullets.map((b) => `<li>${checkSvg}<span>${b}</span></li>`).join('');
+        }
+
+        if (data.audioDemo && data.audioDemo.english && data.audioDemo.tagalog) {
+          demoContent = { en: data.audioDemo.english, tl: data.audioDemo.tagalog };
+          setLanguage(currentLang);
+        }
+
+        if (data.journal && Array.isArray(data.journal.etiquetteTips)) {
+          const ul = document.getElementById('etiquetteTipsList');
+          if (ul) {
+            ul.innerHTML = data.journal.etiquetteTips
+              .map((tip, i) => `<li><span class="etiquette-num">${i + 1}</span><span>${tip}</span></li>`)
+              .join('');
+          }
+        }
+
+        if (data.journal && data.journal.guideAnswers) {
+          guideAnswers = data.journal.guideAnswers;
+          guideReplyText.textContent = guideAnswers[currentGuideKey] || '';
+        }
+
+        if (data.personas && Array.isArray(data.personas.items)) {
+          const cards = document.querySelectorAll('#personasGrid .persona-card');
+          data.personas.items.forEach((p, idx) => {
+            if (cards[idx]) {
+              const h3 = cards[idx].querySelector('h3');
+              const body = cards[idx].querySelector('p');
+              if (h3 && p.title) h3.textContent = p.title;
+              if (body && p.body) body.textContent = p.body;
+            }
+          });
+        }
+
+        if (data.screenshots && Array.isArray(data.screenshots.items)) {
+          const tabs = document.getElementById('galleryTabs');
+          const strip = document.getElementById('galleryStrip');
+          if (tabs && strip) {
+            tabs.innerHTML = data.screenshots.items
+              .map((item, idx) => `<button type="button" class="gallery-tab${idx === 0 ? ' active' : ''}" data-index="${idx}">${item.tab}</button>`)
+              .join('');
+            strip.innerHTML = data.screenshots.items
+              .map(
+                (item, idx) =>
+                  `<div class="gallery-item${idx === 0 ? ' highlighted' : ''}" data-index="${idx}"><div class="phone-frame"><img src="${item.image}" alt="HelloTraveler ${item.title} screen" /></div><div class="gallery-item-title">${item.title}</div><div class="gallery-item-sub">${item.sub}</div></div>`
+              )
+              .join('');
+            bindGalleryHandlers();
+          }
+        }
+      })
+      .catch(() => {
+        // Static fallback HTML already rendered cleanly
+      });
+  </script>
+</body>
+</html>

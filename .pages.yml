@@ -1,0 +1,202 @@
+media:
+  input: assets
+  output: assets
+
+content:
+  - name: site_content
+    label: HelloTraveler Website Content
+    type: file
+    path: data/content.json
+    format: json
+    fields:
+      - name: site
+        label: Site & Navigation
+        type: object
+        fields:
+          - { name: title, label: Browser Page Title, type: string }
+          - { name: metaDescription, label: SEO Meta Description, type: text }
+          - { name: brandName, label: Brand Wordmark, type: string }
+          - { name: announcementBadge, label: Top Bar Badge, type: string }
+          - { name: announcementText, label: Top Bar Message, type: string }
+          - { name: announcementLinkLabel, label: Top Bar Link Text, type: string }
+          - { name: announcementLinkHref, label: Top Bar Link URL, type: string }
+          - { name: navCtaLabel, label: Navbar Button Text, type: string }
+          - { name: navCtaHref, label: Navbar Button URL, type: string }
+
+      - name: hero
+        label: Hero Section
+        type: object
+        fields:
+          - { name: eyebrow, label: Eyebrow Pill Text, type: string }
+          - { name: title, label: Main Headline, type: string }
+          - { name: subtitle, label: Subtitle, type: text }
+          - { name: primaryCtaLabel, label: Primary Button Text, type: string }
+          - { name: primaryCtaHref, label: Primary Button URL, type: string }
+          - { name: secondaryCtaLabel, label: Secondary Button Text, type: string }
+          - { name: secondaryCtaHref, label: Secondary Button URL, type: string }
+          - { name: phoneImage, label: Center Phone Screenshot, type: image }
+          - { name: heroAudioQuote, label: Floating Audio Card Quote, type: text }
+          - { name: heroSignText, label: Floating Sign Translation Text, type: string }
+          - { name: heroCardTitle, label: Floating Feature Card Title, type: string }
+          - { name: heroCardBody, label: Floating Feature Card Body, type: text }
+
+      - name: capabilities
+        label: Capability Strip
+        type: object
+        fields:
+          - { name: label, label: Strip Eyebrow Label, type: string }
+          - name: items
+            label: Capability Pills
+            type: string
+            list: true
+
+      - name: identify
+        label: Feature 1 - Identify Landmarks
+        type: object
+        fields:
+          - { name: kicker, label: Section Kicker, type: string }
+          - { name: heading, label: Headline, type: string }
+          - { name: lead1, label: Paragraph 1, type: text }
+          - { name: lead2, label: Paragraph 2, type: text }
+          - name: bullets
+            label: Bullet Points
+            type: string
+            list: true
+          - { name: ctaLabel, label: Button Text, type: string }
+          - { name: ctaHref, label: Button URL, type: string }
+          - { name: image, label: Phone Screenshot, type: image }
+
+      - name: discover
+        label: Feature 2 - Discover Places
+        type: object
+        fields:
+          - { name: kicker, label: Section Kicker, type: string }
+          - { name: heading, label: Headline, type: string }
+          - { name: lead1, label: Paragraph 1, type: text }
+          - { name: lead2, label: Paragraph 2, type: text }
+          - name: bullets
+            label: Bullet Points
+            type: string
+            list: true
+          - { name: image, label: Phone Screenshot, type: image }
+
+      - name: audioDemo
+        label: Feature 3 - Interactive Audio Tour & Translation
+        type: object
+        fields:
+          - { name: kicker, label: Section Kicker, type: string }
+          - { name: heading, label: Headline, type: string }
+          - { name: lead1, label: Paragraph 1, type: text }
+          - { name: lead2, label: Paragraph 2, type: text }
+          - name: english
+            label: English Audio & Sign Sample
+            type: object
+            fields:
+              - { name: sub, label: Language Subtitle, type: string }
+              - { name: title, label: Card Title, type: string }
+              - { name: statusIdle, label: Idle Prompt Text, type: string }
+              - { name: statusPlaying, label: Playing Status Text, type: string }
+              - { name: audioFile, label: English App Audio File (MP3/WAV path in assets/), type: string }
+              - { name: script, label: Narration Script, type: text }
+              - { name: signPill, label: Sign Language Pill, type: string }
+              - { name: signText, label: Sign Translation Text, type: string }
+          - name: tagalog
+            label: Tagalog Audio & Sign Sample
+            type: object
+            fields:
+              - { name: sub, label: Language Subtitle, type: string }
+              - { name: title, label: Card Title, type: string }
+              - { name: statusIdle, label: Idle Prompt Text, type: string }
+              - { name: statusPlaying, label: Playing Status Text, type: string }
+              - { name: audioFile, label: Tagalog App Audio File (MP3/WAV path in assets/), type: string }
+              - { name: script, label: Narration Script, type: text }
+              - { name: signPill, label: Sign Language Pill, type: string }
+              - { name: signText, label: Sign Translation Text, type: string }
+
+      - name: journal
+        label: Feature 4 - Journal & Personal Tour Guide
+        type: object
+        fields:
+          - { name: kicker, label: Section Kicker, type: string }
+          - { name: heading, label: Headline, type: string }
+          - { name: lead, label: Intro Copy, type: text }
+          - { name: leftTitle, label: Left Card Title, type: string }
+          - { name: leftBody, label: Left Card Copy, type: text }
+          - { name: leftImage, label: Left Card Screenshot, type: image }
+          - name: etiquetteTips
+            label: Visitor Etiquette Tips
+            type: string
+            list: true
+          - { name: rightTitle, label: Right Card Title, type: string }
+          - { name: rightBody, label: Right Card Copy, type: text }
+          - { name: rightImage, label: Right Card Screenshot, type: image }
+          - name: guideAnswers
+            label: Interactive Tour Guide Sample Replies
+            type: object
+            fields:
+              - { name: built, label: "Reply: Who built this?", type: text }
+              - { name: details, label: "Reply: What details should I notice?", type: text }
+              - { name: time, label: "Reply: Best time to visit?", type: text }
+
+      - name: personas
+        label: Audience Personas (3 Cards)
+        type: object
+        fields:
+          - { name: kicker, label: Section Kicker, type: string }
+          - { name: heading, label: Headline, type: string }
+          - { name: lead, label: Intro Copy, type: text }
+          - name: items
+            label: Persona Cards
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Card Title, type: string }
+              - { name: body, label: Card Description, type: text }
+
+      - name: screenshots
+        label: App Screenshots Walkthrough
+        type: object
+        fields:
+          - { name: kicker, label: Section Kicker, type: string }
+          - { name: heading, label: Headline, type: string }
+          - { name: lead, label: Intro Copy, type: text }
+          - name: items
+            label: Screens
+            type: object
+            list: true
+            fields:
+              - { name: tab, label: Tab Label, type: string }
+              - { name: title, label: Screen Title, type: string }
+              - { name: sub, label: Screen Subtitle, type: string }
+              - { name: image, label: Screenshot Image, type: image }
+
+      - name: partner
+        label: Regional Partner Spotlight (Philippines)
+        type: object
+        fields:
+          - { name: kicker, label: Section Kicker, type: string }
+          - { name: heading, label: Headline, type: string }
+          - { name: body, label: Partner Description, type: text }
+          - { name: ctaLabel, label: Button Text, type: string }
+          - { name: ctaHref, label: Partner URL, type: string }
+
+      - name: cta
+        label: Closing Call to Action
+        type: object
+        fields:
+          - { name: eyebrow, label: Eyebrow Pill, type: string }
+          - { name: heading, label: Headline, type: string }
+          - { name: body, label: Body Copy, type: text }
+          - { name: primaryLabel, label: Primary Button Text, type: string }
+          - { name: primaryHref, label: Primary Button URL, type: string }
+          - { name: secondaryLabel, label: Secondary Button Text, type: string }
+          - { name: secondaryHref, label: Secondary Button URL, type: string }
+
+      - name: footer
+        label: Footer
+        type: object
+        fields:
+          - { name: description, label: Brand Description, type: text }
+          - { name: partnerNote, label: Regional Partner Note, type: text }
+          - { name: copyright, label: Copyright Line, type: string }
+          - { name: domainLabel, label: Domain Pill Text, type: string }
