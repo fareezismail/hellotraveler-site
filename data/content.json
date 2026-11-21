@@ -1,0 +1,187 @@
+{
+  "site": {
+    "title": "HelloTraveler: Every Place Has a Story Worth Hearing",
+    "metaDescription": "HelloTraveler turns your camera into a personal cultural guide, identifying landmarks, translating signs, and narrating local history in English and Tagalog.",
+    "brandName": "HelloTraveler",
+    "announcementBadge": "New",
+    "announcementText": "Explore landmarks worldwide with bilingual audio tours.",
+    "announcementLinkLabel": "Try the live audio tour",
+    "announcementLinkHref": "#audio-demo",
+    "navCtaLabel": "Start Exploring",
+    "navCtaHref": "#get-started"
+  },
+  "hero": {
+    "eyebrow": "Personal Cultural Companion · English & Tagalog",
+    "title": "Welcome to the modern era of meaningful travel",
+    "subtitle": "Point your camera at any landmark, heritage home, or weathered sign. HelloTraveler instantly narrates its history, translates the plaque, and guides you with local cultural respect.",
+    "primaryCtaLabel": "Experience the Audio Tour",
+    "primaryCtaHref": "#audio-demo",
+    "secondaryCtaLabel": "See Every Screen",
+    "secondaryCtaHref": "#screenshots",
+    "phoneImage": "assets/journal-detail.jpg",
+    "heroAudioQuote": "\"Hello Traveler! Look up at the sign reading MOTOGO Home and soak in this stunning example of traditional Hmong architecture nestled in the Ha Giang mountains...\"",
+    "heroSignText": "MOTOGO Home, Traditional Hmong Homestay",
+    "heroCardTitle": "Built for Curious Travelers",
+    "heroCardBody": "From historic heritage streets to remote mountain roads around the world, every stop saves automatically into your My Travel Notes journal."
+  },
+  "capabilities": {
+    "label": "Everything you need to understand every place you visit",
+    "items": [
+      "Instant Camera Landmark ID",
+      "English & Tagalog Audio Tours",
+      "Sign & Plaque Translation",
+      "Nearby Dining, Nature & Events",
+      "Personal Tour Guide"
+    ]
+  },
+  "identify": {
+    "kicker": "Identify Landmarks",
+    "heading": "Don't just take a photo. Unlock centuries of history.",
+    "lead1": "Most travelers snap a picture of an old stone arch, ancestral house, or monument and walk away never knowing who built it or why it matters. HelloTraveler changes that in a single tap.",
+    "lead2": "Open your camera, upload a shot from your gallery, or try a sample photo. Within seconds, HelloTraveler recognizes the structure, classifies its architectural heritage, and shares a deeply researched story tailored to where you're standing.",
+    "bullets": [
+      "Live camera lens or gallery upload that works even after you leave the site",
+      "Identifies architecture styles, historic eras, and exact regional context",
+      "Includes a built-in sample photo so anyone can test it immediately"
+    ],
+    "ctaLabel": "See what happens after you snap",
+    "ctaHref": "#audio-demo",
+    "image": "assets/identify.jpg"
+  },
+  "discover": {
+    "kicker": "Discover Places",
+    "heading": "Skip the tourist traps and discover what locals love near you",
+    "lead1": "Whether you're exploring historic neighborhoods on foot or cruising coastal roads anywhere in the world, the best meals, heritage bell towers, and quiet viewpoints are rarely on generic top-ten lists.",
+    "lead2": "One tap on Discover Nearby surfaces hand-picked dining, historical landmarks, nature escapes, and local events right around your GPS location, and ready to open directly in Google Maps.",
+    "bullets": [
+      "Curated across four clear pillars: Restaurants, Historical Sites, Nature, and Events",
+      "Seamless switch between English and Tagalog descriptions on the spot"
+    ],
+    "image": "assets/discover.jpg"
+  },
+  "audioDemo": {
+    "kicker": "Audio Tours & Translation",
+    "heading": "Listen hands-free in English or Tagalog",
+    "lead1": "Keep your eyes on the stone carvings, mountain skyline, and street life around you instead of staring at a wall of tiny text. Every landmark includes a warm, paced audio tour with selectable playback speed (0.85x, 1x, 1.15x).",
+    "lead2": "Switch languages anytime using the interactive demo on the right to see how HelloTraveler adapts both narration and sign translations seamlessly.",
+    "english": {
+      "sub": "Viewing & listening in English",
+      "title": "Audio Tour · English",
+      "statusIdle": "Tap to preview narration",
+      "statusPlaying": "Playing English narration",
+      "audioFile": "assets/audio-en.mp3",
+      "script": "\"Hello Traveler! Look up at the sign reading MOTOGO Home and soak in this stunning example of traditional Hmong architecture. Nestled in the Ha Giang mountains, this dwelling features earthen walls and stone carvings built to brave the cool climate.\"",
+      "signPill": "English",
+      "signText": "MOTOGO Home, Traditional Hmong Highland Homestay, Ha Giang"
+    },
+    "tagalog": {
+      "sub": "Tinitingnan at pinapakinggan sa Tagalog",
+      "title": "Audio Tour · Tagalog",
+      "statusIdle": "I-tap upang pakinggan ang salaysay",
+      "statusPlaying": "Pinapatugtog ang salaysay sa Tagalog",
+      "audioFile": "assets/audio-tl.mp3",
+      "script": "\"Hello Traveler! Tingnan ang karatulang MOTOGO Home at pagmasdan ang magandang halimbawa ng tradisyonal na arkitekturang Hmong sa kabundukan ng Ha Giang, na gawa sa luwad at inukit na bato para sa malamig na klima.\"",
+      "signPill": "Tagalog",
+      "signText": "MOTOGO Home, Tradisyonal na Tahanang Hmong sa Kabundukan ng Ha Giang"
+    }
+  },
+  "journal": {
+    "kicker": "Journal & Tour Guide",
+    "heading": "Go deeper, travel with respect, and remember every stop",
+    "lead": "Every place you identify becomes an editorial journal entry, pairing historical background and cultural etiquette with My Travel Notes and an always-ready personal tour guide.",
+    "leftTitle": "Editorial history & cultural significance",
+    "leftBody": "Read clear, respectful context written like a thoughtful travel magazine, covering architectural heritage, symbolic motifs, and how local communities keep centuries-old traditions alive.",
+    "leftImage": "assets/history.jpg",
+    "etiquetteTips": [
+      "Always ask for permission before photographing local residents and children.",
+      "Remove your shoes before entering traditional indoor living spaces.",
+      "Support the local community by purchasing handmade crafts directly from artisans."
+    ],
+    "rightTitle": "Ask Tour Guide & My Travel Notes",
+    "rightBody": "Curious who built it, what hidden details to look for, or when to visit? Tap a suggested question below, or type your own inside the app, and save personal memories in My Travel Notes alongside every stop.",
+    "rightImage": "assets/tips-guide.jpg",
+    "guideAnswers": {
+      "built": "Traditional Ha Giang homesteads like Motogo Home are crafted by local Hmong families using centuries-old rammed-earth wall techniques and hand-carved limestone pillars passed down across generations.",
+      "details": "Look closely at the yin-yang clay roof tiles designed to shed heavy mountain mist, the geometric stone carvings flanking the timber gate, and the ochre earthen plaster that keeps rooms warm on chilly highland nights.",
+      "time": "Early morning (7:00 to 9:30 AM) or late afternoon brings soft golden light across the courtyard and quieter village lanes, ideal for respectful photography and chatting with local artisans."
+    }
+  },
+  "personas": {
+    "kicker": "Designed Around Real Journeys",
+    "heading": "See what HelloTraveler can do for every kind of explorer",
+    "lead": "Whether you're exploring historic capitals on foot, riding coastal highways, or discovering hidden mountain villages, HelloTraveler meets you right where curiosity strikes.",
+    "items": [
+      {
+        "title": "For scooter riders & road-trippers",
+        "body": "Pull over at an unexpected roadside temple, viewpoint, or heritage mansion. Snap a photo, pop in an earbud, and hear its story before getting back on the road."
+      },
+      {
+        "title": "For culture-first travelers",
+        "body": "Go beyond surface-level checklists. Get respectful local etiquette tips, real-time plaque translations, and architectural history that honors indigenous heritage."
+      },
+      {
+        "title": "For storytellers & journal keepers",
+        "body": "Every landmark automatically builds your personal Travel Journal, complete with photos, audio scripts, and My Travel Notes to revisit long after the trip ends."
+      }
+    ]
+  },
+  "screenshots": {
+    "kicker": "Inside the App",
+    "heading": "Warm, calm, and crafted for explorers everywhere",
+    "lead": "Built with a flat pastel editorial interface that stays effortless to read in bright sunlight, with zero clutter and zero distractions.",
+    "items": [
+      {
+        "tab": "1. Identify",
+        "title": "Identify Landmarks",
+        "sub": "Camera snap, upload, or sample photo",
+        "image": "assets/identify.jpg"
+      },
+      {
+        "tab": "2. Discover",
+        "title": "Discover Places",
+        "sub": "Dining, history, nature & local events",
+        "image": "assets/discover.jpg"
+      },
+      {
+        "tab": "3. Audio & Translation",
+        "title": "Audio & Translation",
+        "sub": "English & Tagalog narration + plaques",
+        "image": "assets/journal-detail.jpg"
+      },
+      {
+        "tab": "4. Cultural History",
+        "title": "Cultural Context",
+        "sub": "Editorial background & heritage notes",
+        "image": "assets/history.jpg"
+      },
+      {
+        "tab": "5. Tips & Tour Guide",
+        "title": "Tips & Tour Guide",
+        "sub": "Etiquette, notes & instant Q&A",
+        "image": "assets/tips-guide.jpg"
+      }
+    ]
+  },
+  "partner": {
+    "kicker": "Regional Partner Spotlight · Philippines",
+    "heading": "Exploring Iloilo and Panay on two wheels?",
+    "body": "HelloTraveler is an independent, global travel guide built for explorers everywhere. When your travels bring you to the Philippines, Ilonggo Scooter Rental is our motorcycle rental partner in the Philippines, offering reliable scooters and self-guided routes that pair naturally with HelloTraveler.",
+    "ctaLabel": "Visit Ilonggo Scooter Rental",
+    "ctaHref": "https://www.ilonggo.fun"
+  },
+  "cta": {
+    "eyebrow": "Ready for Your Next Adventure?",
+    "heading": "It's time to experience the next generation of cultural travel",
+    "body": "HelloTraveler brings the freedom of independent exploration together with the depth of a personal tour guide in your pocket, wherever in the world your journey takes you.",
+    "primaryLabel": "Explore Features",
+    "primaryHref": "#identify",
+    "secondaryLabel": "Replay Live Audio Demo",
+    "secondaryHref": "#audio-demo"
+  },
+  "footer": {
+    "description": "An independent global cultural companion app designed to help travelers explore landmarks, local history, and traditions worldwide with curiosity and respect.",
+    "partnerNote": "Ilonggo Scooter Rental is our motorcycle rental partner in the Philippines.",
+    "copyright": "© 2026 HelloTraveler. All rights reserved.",
+    "domainLabel": "hellotraveler.app"
+  }
+}
