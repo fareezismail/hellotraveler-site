@@ -200,3 +200,9 @@ content:
           - { name: partnerNote, label: Regional Partner Note, type: text }
           - { name: copyright, label: Copyright Line, type: string }
           - { name: domainLabel, label: Domain Pill Text, type: string }
+
+  - name: credits_page
+    label: How Credits Work Page
+    type: file
+    path: how-credits-work.html
+    format: raw
