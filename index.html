@@ -2527,7 +2527,7 @@
 
         document.querySelectorAll('[data-cms]').forEach((el) => {
           const val = getByPath(data, el.dataset.cms);
-          if (typeof val === 'string') el.textContent = val;
+          if (typeof val === 'string') { if (el.classList.contains('brand-wordmark') && el.closest('.site-header') && val.indexOf('Hello') === 0) { el.textContent = ''; var hello = document.createElement('span'); hello.style.color = '#FFC700'; hello.textContent = 'Hello'; el.append(hello, document.createTextNode(val.slice(5))); } else el.textContent = val; }
         });
 
         document.querySelectorAll('[data-cms-link]').forEach((el) => {
