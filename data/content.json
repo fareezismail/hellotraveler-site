@@ -11,9 +11,9 @@
     "navCtaHref": "#get-started"
   },
   "hero": {
-    "eyebrow": "Personal Cultural Companion · English & Tagalog",
-    "title": "Welcome to the modern era of meaningful travel",
-    "subtitle": "Point your camera at any landmark, heritage home, or weathered sign. HelloTraveler instantly narrates its history, translates the plaque, and guides you with local cultural respect.",
+    "eyebrow": "Personal Travel Companion · English & Tagalog",
+    "title": "Your Personal Tour Guide",
+    "subtitle": "No research needed. Explore nearby places or point your camera and hear the story behind what you see.",
     "primaryCtaLabel": "Experience the Audio Tour",
     "primaryCtaHref": "#audio-demo",
     "secondaryCtaLabel": "See Every Screen",
@@ -49,7 +49,7 @@
     "image": "assets/identify.jpg"
   },
   "discover": {
-    "kicker": "Discover Places",
+    "kicker": "Discover Nearby",
     "heading": "Skip the tourist traps and discover what locals love near you",
     "lead1": "Whether you're exploring historic neighborhoods on foot or cruising coastal roads anywhere in the world, the best meals, heritage bell towers, and quiet viewpoints are rarely on generic top-ten lists.",
     "lead2": "One tap on Discover Nearby surfaces hand-picked dining, historical landmarks, nature escapes, and local events right around your GPS location, and ready to open directly in Google Maps.",
@@ -165,7 +165,7 @@
   "partner": {
     "kicker": "Regional Partner Spotlight · Philippines",
     "heading": "Exploring Iloilo and Panay on two wheels?",
-    "body": "HelloTraveler is an independent, global travel guide built for explorers everywhere. When your travels bring you to the Philippines, Ilonggo Scooter Rental is our motorcycle rental partner in the Philippines, offering reliable scooters and self-guided routes that pair naturally with HelloTraveler.",
+    "body": "HelloTraveler is a global travel guide built for explorers everywhere. When your travels bring you to the Philippines, Ilonggo Scooter Rental is our motorcycle rental partner in the Philippines, offering reliable scooters and self-guided routes that pair naturally with HelloTraveler.",
     "ctaLabel": "Visit Ilonggo Scooter Rental",
     "ctaHref": "https://www.ilonggo.fun"
   },
@@ -179,7 +179,7 @@
     "secondaryHref": "#audio-demo"
   },
   "footer": {
-    "description": "An independent global cultural companion app designed to help travelers explore landmarks, local history, and traditions worldwide with curiosity and respect.",
+    "description": "A global cultural companion app designed to help travelers explore landmarks, local history, and traditions worldwide with curiosity and respect.",
     "partnerNote": "Ilonggo Scooter Rental is our motorcycle rental partner in the Philippines.",
     "copyright": "© 2026 HelloTraveler. All rights reserved.",
     "domainLabel": "hellotraveler.app"
